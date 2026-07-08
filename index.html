@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laurent Husser · VPS Oracle Cloud</title>
+<meta name="color-scheme" content="dark">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { color-scheme: dark !important; }
+  body {
+    background: #0f172a !important;
+    color: #cbd5e1 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* Header */
+  header { text-align: center; margin-bottom: 48px; }
+  .eyebrow {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid #f97316 !important;
+    background: transparent !important;
+    color: #f97316 !important;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    color: #fff !important;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  h1 span { color: #f97316 !important; }
+  .subtitle { font-size: 17px; color: #94a3b8 !important; max-width: 560px; margin: 0 auto; }
+
+  /* Stats bar */
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .stat {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 13px;
+    color: #cbd5e1 !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stat b { color: #f97316 !important; font-weight: 700; }
+
+  /* Section title */
+  .section-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #f97316 !important;
+    font-weight: 700;
+    margin: 56px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #334155 !important;
+  }
+
+  /* Service cards */
+  .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 14px;
+    padding: 26px;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    border-color: #f97316 !important;
+    box-shadow: 0 12px 30px -10px rgba(249, 115, 22, 0.35);
+  }
+  .card-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 18px;
+    background: rgba(249, 115, 22, 0.12) !important;
+    border: 1px solid #f97316 !important;
+  }
+  .card h3 {
+    color: #fff !important;
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .card p {
+    color: #94a3b8 !important;
+    font-size: 14px;
+    margin-bottom: 18px;
+    min-height: 42px;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #f97316 !important;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .card-link .arrow { transition: transform 0.25s ease; }
+  .card:hover .card-link .arrow { transform: translateX(4px); }
+
+  /* Infra box */
+  .infra-box {
+    background: #1e293b !important;
+    border-left: 4px solid #f97316 !important;
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin-top: 12px;
+  }
+  .infra-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .infra-item .label { font-size: 12px; color: #64748b !important; text-transform: uppercase; letter-spacing: 0.05em; }
+  .infra-item .value { font-size: 16px; color: #fff !important; font-weight: 700; margin-top: 2px; }
+
+  footer {
+    text-align: center;
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid #334155 !important;
+    color: #64748b !important;
+    font-size: 13px;
+  }
+  footer a { color: #f97316 !important; text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .wrap { padding: 32px 16px 60px; }
+    .stats { gap: 8px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Oracle Cloud · Always Free</span>
+      <h1>Laurent Husser<span> · VPS</span></h1>
+      <p class="subtitle">Instance Ampere A1.Flex hébergée sur Oracle Cloud Infrastructure — services et projets déployés via Coolify.</p>
+
+      <div class="stats">
+        <div class="stat">🧠 <b>4 OCPU</b> · 24 Go RAM</div>
+        <div class="stat">💾 <b>200 Go</b> stockage</div>
+        <div class="stat">🐧 Ubuntu <b>24.04</b> LTS</div>
+        <div class="stat">🔒 SSH clé + Fail2ban</div>
+      </div>
+    </header>
+
+    <div class="section-title">Services</div>
+    <div class="services">
+
+      <a class="card" href="https://coolify.lhusser.cloud" target="_blank" rel="noopener">
+        <div class="card-icon">🚀</div>
+        <h3>Coolify</h3>
+        <p>Plateforme de déploiement self-hosted — gère l'ensemble des applications de ce serveur.</p>
+        <span class="card-link">Ouvrir le dashboard <span class="arrow">→</span></span>
+      </a>
+
+      <a class="card" href="https://ti83.lhusser.cloud" target="_blank" rel="noopener">
+        <div class="card-icon">🧮</div>
+        <h3>Calculatrice TI-83</h3>
+        <p>Simulateur de calculatrice graphique en React — interface et fonctions scientifiques.</p>
+        <span class="card-link">Ouvrir l'application <span class="arrow">→</span></span>
+      </a>
+
+      <a class="card" href="https://pixou.lhusser.cloud" target="_blank" rel="noopener">
+        <div class="card-icon">🟥</div>
+        <h3>Super Pixou</h3>
+        <p>Jeu de plateforme HTML5 — 24 niveaux, éditeur intégré, installable en PWA.</p>
+        <span class="card-link">Jouer maintenant <span class="arrow">→</span></span>
+      </a>
+
+    </div>
+
+    <div class="section-title">Infrastructure</div>
+    <div class="infra-box">
+      <div style="color:#cbd5e1;">
+        Réseau configuré manuellement (VCN, Subnet, Internet Gateway) — proxy Traefik géré par Coolify avec certificats Let's Encrypt automatiques sur chaque sous-domaine.
+      </div>
+      <div class="infra-grid">
+        <div class="infra-item"><div class="label">Région</div><div class="value">Phoenix, US</div></div>
+        <div class="infra-item"><div class="label">Shape</div><div class="value">A1.Flex</div></div>
+        <div class="infra-item"><div class="label">Proxy</div><div class="value">Traefik v3.6</div></div>
+        <div class="infra-item"><div class="label">TLS</div><div class="value">Let's Encrypt</div></div>
+      </div>
+    </div>
+
+    <footer>
+      Géré via <a href="https://coolify.lhusser.cloud" target="_blank" rel="noopener">Coolify</a> · Oracle Cloud Always Free · lhusser.cloud
+    </footer>
+  </div>
+</body>
+</html>
