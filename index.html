@@ -154,6 +154,43 @@
   .infra-item .label { font-size: 12px; color: #64748b !important; text-transform: uppercase; letter-spacing: 0.05em; }
   .infra-item .value { font-size: 16px; color: #fff !important; font-weight: 700; margin-top: 2px; }
 
+  /* Ressources système (disque / RAM) */
+  .res-box {
+    background: #1e293b !important;
+    border-left: 4px solid #f97316 !important;
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin-top: 12px;
+  }
+  .res-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+  .res-item .res-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .res-item .res-label { font-size: 13px; color: #64748b !important; text-transform: uppercase; letter-spacing: 0.05em; }
+  .res-item .res-value { font-size: 14px; color: #fff !important; font-weight: 600; }
+  .res-bar-track {
+    width: 100%;
+    height: 10px;
+    background: #0f172a !important;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .res-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f97316, #fb923c) !important;
+    transition: width 1s ease;
+  }
+  .res-updated { font-size: 12px; color: #64748b !important; margin-top: 16px; text-align: right; }
+
   footer {
     text-align: center;
     margin-top: 64px;
@@ -252,9 +289,56 @@
       </div>
     </div>
 
+    <div class="section-title">Ressources système</div>
+    <div class="res-box">
+      <div class="res-grid">
+        <div class="res-item">
+          <div class="res-top">
+            <span class="res-label">💾 Disque</span>
+            <span class="res-value" id="res-disk-value">—</span>
+          </div>
+          <div class="res-bar-track"><div class="res-bar-fill" id="res-disk-bar"></div></div>
+        </div>
+        <div class="res-item">
+          <div class="res-top">
+            <span class="res-label">🧠 RAM</span>
+            <span class="res-value" id="res-ram-value">—</span>
+          </div>
+          <div class="res-bar-track"><div class="res-bar-fill" id="res-ram-bar"></div></div>
+        </div>
+      </div>
+      <div class="res-updated" id="res-updated">Chargement…</div>
+    </div>
+
     <footer>
       Géré via <a href="https://coolify.lhusser.cloud" target="_blank" rel="noopener">Coolify</a> · Oracle Cloud Always Free · lhusser.cloud
     </footer>
   </div>
+  <script>
+    async function loadStats() {
+      try {
+        const res = await fetch('/stats/stats.json', { cache: 'no-store' });
+        const s = await res.json();
+
+        document.getElementById('res-disk-value').textContent =
+          `${s.disk_used_gb} Go / ${s.disk_total_gb} Go (${s.disk_free_gb} Go libres)`;
+        document.getElementById('res-ram-value').textContent =
+          `${(s.ram_used_mb/1024).toFixed(1)} Go / ${(s.ram_total_mb/1024).toFixed(1)} Go (${(s.ram_free_mb/1024).toFixed(1)} Go libres)`;
+
+        setTimeout(() => {
+          document.getElementById('res-disk-bar').style.width = s.disk_percent + '%';
+          document.getElementById('res-ram-bar').style.width = s.ram_percent + '%';
+        }, 200);
+
+        const updatedDate = new Date(s.updated);
+        document.getElementById('res-updated').textContent =
+          'Mis à jour à ' + updatedDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+      } catch (err) {
+        document.getElementById('res-updated').textContent = 'Données indisponibles';
+      }
+    }
+    loadStats();
+    setInterval(loadStats, 60000);
+  </script>
 </body>
 </html>
