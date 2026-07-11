@@ -331,10 +331,20 @@
         }, 200);
 
         const updatedDate = new Date(s.updated);
-        document.getElementById('res-updated').textContent =
-          'Mis à jour à ' + updatedDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        const ageMinutes = (Date.now() - updatedDate.getTime()) / 60000;
+        const timeLabel = updatedDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        const updatedEl = document.getElementById('res-updated');
+        if (ageMinutes > 15) {
+          updatedEl.innerHTML = `⚠️ Données non actualisées depuis ${Math.round(ageMinutes)} min (dernière : ${timeLabel})`;
+          updatedEl.style.color = '#f87171';
+        } else {
+          updatedEl.textContent = 'Mis à jour à ' + timeLabel;
+          updatedEl.style.color = '';
+        }
       } catch (err) {
-        document.getElementById('res-updated').textContent = 'Données indisponibles';
+        const el = document.getElementById('res-updated');
+        el.textContent = '⚠️ Données indisponibles';
+        el.style.color = '#f87171';
       }
     }
     loadStats();
